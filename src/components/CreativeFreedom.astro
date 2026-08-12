@@ -19,10 +19,10 @@ const principles = [
     </p>
   </div>
 
-  <div class="cf__grid">
+  <div class="cf__grid" data-reveal-items=".cf__item">
     <div class="cf__col">
       {[principles[0], principles[2]].map((p) => (
-        <div class="cf__item">
+        <div class="cf__item" data-reveal-delay={(Number(p.n) - 1) * 150}>
           <span class="cf__number">{p.n}</span>
           <span class="cf__text">{p.text}</span>
         </div>
@@ -30,7 +30,7 @@ const principles = [
     </div>
     <div class="cf__col cf__col--offset">
       {[principles[1], principles[3]].map((p) => (
-        <div class="cf__item">
+        <div class="cf__item" data-reveal-delay={(Number(p.n) - 1) * 150}>
           <span class="cf__number">{p.n}</span>
           <span class="cf__text">{p.text}</span>
         </div>

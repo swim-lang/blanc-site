@@ -1,6 +1,5 @@
 ---
 import IronMarkPaths from "./IronMarkPaths.astro";
-import Button from "./Button.astro";
 ---
 
 <section class="conv" id="visit">
@@ -13,13 +12,7 @@ import Button from "./Button.astro";
     Walk the courtyard. See how the rooms connect. Tell us who you’re bringing together and
     what you’re beginning to imagine.
   </p>
-  <div class="conv__ctas">
-    <Button href="mailto:hello@blancdenver.com" variant="solid">Plan a Visit</Button>
-    <Button href="mailto:hello@blancdenver.com" variant="outline-ink">Ask About Your Date</Button>
-  </div>
-
   <form class="conv__form" name="inquiry" method="post">
-    <span class="conv__form-label">Or start with the basics</span>
     <div class="conv__row">
       <input type="text" name="name" placeholder="Name" aria-label="Name" />
       <input type="email" name="email" placeholder="Email" aria-label="Email" />
@@ -65,25 +58,12 @@ import Button from "./Button.astro";
     line-height: 27px;
     color: var(--ink-soft);
   }
-  .conv__ctas {
-    display: flex;
-    gap: 14px;
-    margin-top: 8px;
-  }
   .conv__form {
     display: flex;
     flex-direction: column;
     width: min(720px, 100%);
     margin-top: 44px;
     text-align: left;
-  }
-  .conv__form-label {
-    font-size: 13px;
-    letter-spacing: var(--tracking-caps);
-    text-transform: uppercase;
-    text-align: center;
-    color: var(--ink);
-    padding-bottom: 20px;
   }
   .conv__row {
     display: flex;

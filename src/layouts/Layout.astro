@@ -56,9 +56,21 @@ const fontFaces = `
           [...sec.children].forEach((child, i) => {
             const pos = getComputedStyle(child).position;
             if (pos === "absolute" || pos === "fixed") return;
+            if (child.hasAttribute("data-reveal-items")) return; // items reveal individually below
             child.classList.add("reveal");
             (child as HTMLElement).style.transitionDelay = `${Math.min(i, 4) * 90}ms`;
             io.observe(child);
+          });
+        });
+
+        // containers whose items float in one by one
+        document.querySelectorAll("[data-reveal-items]").forEach((box) => {
+          const sel = box.getAttribute("data-reveal-items") || ":scope > *";
+          [...box.querySelectorAll(sel)].forEach((child, i) => {
+            const el = child as HTMLElement;
+            el.classList.add("reveal");
+            el.style.transitionDelay = `${el.dataset.revealDelay ?? Math.min(i, 6) * 160}ms`;
+            io.observe(el);
           });
         });
       }

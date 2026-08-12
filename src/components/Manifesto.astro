@@ -1,5 +1,6 @@
 ---
 import WordmarkPaths from "./WordmarkPaths.astro";
+import { withBase } from "../lib/paths";
 ---
 
 <section class="manifesto">
@@ -8,6 +9,7 @@ import WordmarkPaths from "./WordmarkPaths.astro";
   </svg>
   <div class="manifesto__copy">
     <span class="manifesto__eyebrow">Introduction</span>
+    <img class="manifesto__shoes" src={withBase("/brand/shoes.svg")} alt="" aria-hidden="true" />
     <h2 class="manifesto__headline">A strong point of view. Plenty of room for yours.</h2>
     <p class="manifesto__body">
       Blanc isn’t an empty box, and it won’t decide the day for you. Old brick, whitewashed
@@ -50,12 +52,15 @@ import WordmarkPaths from "./WordmarkPaths.astro";
     text-transform: uppercase;
     color: var(--ink);
   }
+  .manifesto__shoes {
+    width: 230px;
+    height: auto;
+    margin: -6px 0 -10px;
+  }
   .manifesto__headline {
     max-width: 1000px;
     font-size: clamp(28px, 3vw, 44px);
     line-height: 1.32;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
     color: var(--ink);
   }
   .manifesto__body {
