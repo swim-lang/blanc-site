@@ -101,6 +101,7 @@ import { withBase } from "../lib/paths";
     const wait = Math.max(0, MIN_SHOW - (performance.now() - start));
     setTimeout(() => {
       loader?.classList.add("is-done");
+      document.dispatchEvent(new CustomEvent("blanc:ready"));
       setTimeout(() => {
         if (boil) clearInterval(boil);
         loader?.remove();
