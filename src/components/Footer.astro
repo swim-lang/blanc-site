@@ -1,0 +1,82 @@
+---
+import WordmarkPaths from "./WordmarkPaths.astro";
+import Button from "./Button.astro";
+---
+
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__info">
+      <span class="footer__tagline">For what lasts.</span>
+      <address>
+        3150 Walnut Street<br />
+        Denver, Colorado 80205
+      </address>
+      <a href="mailto:hello@blancdenver.com">hello@blancdenver.com</a>
+    </div>
+    <div class="footer__links">
+      <a href="#spaces">The Space</a>
+      <a href="#weddings">Weddings</a>
+      <a href="#events">Events</a>
+      <a href="#story">Our Story</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://instagram.com" rel="noopener">Instagram</a>
+    </div>
+    <Button href="#visit" variant="outline-ink" class="footer__cta">Plan a Visit</Button>
+  </div>
+
+  <svg class="footer__wordmark" viewBox="0 0 738.12 245.98" role="img" aria-label="Blanc">
+    <WordmarkPaths />
+  </svg>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding: 60px 48px 48px;
+    background: var(--iron);
+    color: var(--ink);
+  }
+  .footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+  .footer__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .footer__tagline {
+    font-style: italic;
+    font-size: 19px;
+  }
+  .footer__info address { font-style: normal; color: rgba(69, 73, 74, 0.85); }
+  .footer__info a { color: rgba(69, 73, 74, 0.85); }
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    font-size: 15px;
+  }
+  .footer__links a:hover { opacity: 0.7; }
+  .footer__cta {
+    border: 1px solid rgba(69, 73, 74, 0.6);
+    color: var(--ink);
+    padding: 11px 24px;
+  }
+  .footer__wordmark {
+    width: min(1180px, 100%);
+    height: auto;
+    margin: 0 auto;
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .footer__top { flex-direction: column; }
+  }
+</style>

@@ -1,0 +1,117 @@
+---
+import WordmarkPaths from "./WordmarkPaths.astro";
+import { withBase } from "../lib/paths";
+---
+
+<div id="loader" aria-hidden="true">
+  <img class="loader__lace loader__lace--top" src={withBase("/brand/lace-iron.svg")} alt="" />
+  <img class="loader__lace loader__lace--bottom" src={withBase("/brand/lace-iron.svg")} alt="" />
+  <svg id="loader-wordmark" viewBox="0 0 738.12 245.98" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- four hand-drawn "cels": same art, different organic warps -->
+      <filter id="boil0" x="-8%" y="-15%" width="116%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="7.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="boil1" x="-8%" y="-15%" width="116%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="17" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="7.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="boil2" x="-8%" y="-15%" width="116%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="42" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="7.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="boil3" x="-8%" y="-15%" width="116%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="71" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="7.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+    <g id="loader-art">
+      <WordmarkPaths />
+    </g>
+  </svg>
+</div>
+
+<style>
+  #loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+    transition: opacity 0.6s ease;
+  }
+  #loader.is-done {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #loader-wordmark {
+    width: min(420px, 60vw);
+    height: auto;
+    overflow: visible;
+    color: var(--iron);
+  }
+  .loader__lace {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+  .loader__lace--top {
+    top: 0;
+  }
+  .loader__lace--bottom {
+    bottom: 0;
+    transform: scaleY(-1);
+  }
+</style>
+
+<script>
+  const loader = document.getElementById("loader");
+  const svg = document.getElementById("loader-wordmark");
+  const art = document.getElementById("loader-art");
+
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // stop-motion boil: hold each "cel", then snap to the next (~6fps, shot on threes)
+  const FRAMES = [
+    { f: "boil0", x: 0.0, y: 0.0, r: 0.0 },
+    { f: "boil1", x: 2.8, y: -2.0, r: 0.3 },
+    { f: "boil2", x: -2.4, y: 1.8, r: -0.35 },
+    { f: "boil3", x: 1.5, y: 2.4, r: 0.22 },
+  ];
+  const HOLD_MS = 165;
+  let i = 0;
+  let boil: ReturnType<typeof setInterval> | undefined;
+
+  if (!reduceMotion && art && svg) {
+    boil = setInterval(() => {
+      i = (i + 1) % FRAMES.length;
+      const fr = FRAMES[i];
+      art.setAttribute("filter", `url(#${fr.f})`);
+      svg.style.transform = `translate(${fr.x}px, ${fr.y}px) rotate(${fr.r}deg)`;
+    }, HOLD_MS);
+  }
+
+  const MIN_SHOW = reduceMotion ? 200 : 2600;
+  const start = performance.now();
+
+  function dismiss() {
+    const wait = Math.max(0, MIN_SHOW - (performance.now() - start));
+    setTimeout(() => {
+      loader?.classList.add("is-done");
+      setTimeout(() => {
+        if (boil) clearInterval(boil);
+        loader?.remove();
+      }, 700);
+    }, wait);
+  }
+
+  // dev/preview escape hatch: visit /#loader to keep the loading screen up
+  const hold = location.hash === "#loader";
+  if (!hold) {
+    if (document.readyState === "complete") dismiss();
+    else addEventListener("load", dismiss);
+  }
+</script>

@@ -1,0 +1,62 @@
+---
+import IronCrestPaths from "./IronCrestPaths.astro";
+import { withBase } from "../lib/paths";
+---
+
+<section class="statement">
+  <img class="statement__photo" src={withBase("/images/b4.jpg")} alt="" aria-hidden="true" />
+  <div class="statement__scrim"></div>
+  <div class="statement__content">
+    <svg class="statement__crest" viewBox="0 0 530.64 227.92" aria-hidden="true">
+      <IronCrestPaths />
+    </svg>
+    <h2 class="statement__line statement__line--caps">The space has a story.</h2>
+    <h2 class="statement__line statement__line--italic">The next one is yours.</h2>
+  </div>
+</section>
+
+<style>
+  .statement {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .statement__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 75%;
+  }
+  .statement__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(69, 73, 74, 0.5);
+  }
+  .statement__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    color: var(--paper);
+    padding: 0 24px;
+  }
+  .statement__crest {
+    width: 330px;
+    height: auto;
+    margin-bottom: 22px;
+    color: var(--paper);
+  }
+  .statement__line { font-size: clamp(26px, 2.8vw, 40px); line-height: 1.35; }
+  .statement__line--caps {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .statement__line--italic { font-style: italic; }
+</style>

@@ -1,0 +1,39 @@
+---
+import "../styles/global.css";
+import Loader from "../components/Loader.astro";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Blanc — Weddings & Events · Denver, RiNo",
+  description = "A hidden indoor-outdoor venue in the heart of RiNo—full of character, open to interpretation, and ready for a celebration that feels unmistakably yours.",
+} = Astro.props;
+
+const fontBook = withBase("/fonts/ABCMarist-Book.otf");
+const fontItalic = withBase("/fonts/ABCMarist-BookItalic.otf");
+const fontFaces = `
+@font-face { font-family: "ABC Marist"; src: url("${fontBook}") format("opentype"); font-weight: 350; font-style: normal; font-display: swap; }
+@font-face { font-family: "ABC Marist"; src: url("${fontItalic}") format("opentype"); font-weight: 350; font-style: italic; font-display: swap; }
+`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preload" href={fontBook} as="font" type="font/otf" crossorigin />
+    <link rel="preload" href={fontItalic} as="font" type="font/otf" crossorigin />
+    <style set:html={fontFaces}></style>
+  </head>
+  <body>
+    <Loader />
+    <slot />
+  </body>
+</html>

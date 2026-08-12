@@ -1,0 +1,171 @@
+---
+import Button from "./Button.astro";
+import { withBase } from "../lib/paths";
+
+const faqs = [
+  {
+    q: "How many guests can Blanc host?",
+    a: "Blanc is designed for celebrations of up to 200 guests, with layouts that can feel just as considered at a smaller scale. Tell us your approximate guest count and we’ll help you think through the best flow.",
+  },
+  {
+    q: "Is Blanc both indoors and outdoors?",
+    a: "Yes. The Gallery, Barn, and Courtyard give your event room to move between different settings and atmospheres throughout the day.",
+  },
+  {
+    q: "How much can we change?",
+    a: "Quite a lot. The space is meant to be interpreted. We’ll share practical guidelines and requirements early, then work with you and your creative partners to make the venue feel personal.",
+  },
+  {
+    q: "What comes with the venue?",
+    a: "Your proposal will clearly outline access, on-site support, available furnishings, audiovisual equipment, décor, and vendor requirements. The practical details should feel just as considered as the visible ones.",
+  },
+  {
+    q: "Can Blanc host something other than a wedding?",
+    a: "Absolutely. Private dinners, milestone celebrations, showers, company gatherings, nonprofit events, creative productions, and other occasions that deserve a memorable setting.",
+  },
+  {
+    q: "Can we come see it?",
+    a: "Please do. Photographs show the texture; a visit reveals how naturally the spaces connect.",
+  },
+];
+---
+
+<section class="faq" id="faq">
+  <div class="faq__list">
+    {faqs.map((item, i) => (
+      <details class="faq__item" open={i === 0}>
+        <summary>
+          <span class="faq__q">{item.q}</span>
+          <span class="faq__indicator" aria-hidden="true"></span>
+        </summary>
+        <div class="faq__answer">
+          <p>{item.a}</p>
+          <span class="faq__tag">N.{String(i + 1).padStart(2, "0")}</span>
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <div class="faq__aside">
+    <span class="faq__eyebrow">FAQ</span>
+    <h2 class="faq__headline">A few things you may be <em>wondering.</em></h2>
+    <img class="faq__lace" src={withBase("/brand/lace.svg")} alt="" aria-hidden="true" />
+    <p class="faq__note">Don’t see your question? Ask us anything—we answer quickly.</p>
+    <Button href="#visit" variant="solid">Plan a Visit</Button>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: flex;
+    gap: 110px;
+    padding: 130px 9.7%;
+    background: var(--iron);
+  }
+  .faq__list {
+    flex: 1;
+    max-width: 700px;
+  }
+  .faq__item {
+    border-top: 1px solid rgba(69, 73, 74, 0.4);
+  }
+  .faq__item:last-child {
+    border-bottom: 1px solid rgba(69, 73, 74, 0.4);
+  }
+  .faq__item[open] {
+    border: 1px solid rgba(69, 73, 74, 0.55);
+  }
+  .faq__item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    font-size: 21px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item[open] summary {
+    font-style: italic;
+    font-size: 22px;
+    padding-bottom: 10px;
+  }
+  .faq__indicator {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .faq__indicator::before,
+  .faq__indicator::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: rgba(69, 73, 74, 0.65);
+  }
+  .faq__indicator::before { width: 16px; height: 1px; }
+  .faq__indicator::after { width: 1px; height: 16px; transition: transform 0.25s ease; }
+  .faq__item[open] .faq__indicator::after { transform: scaleY(0); }
+
+  .faq__answer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 0 28px 28px;
+  }
+  .faq__answer p {
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 25px;
+    color: rgba(69, 73, 74, 0.85);
+  }
+  .faq__tag {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: rgba(69, 73, 74, 0.6);
+  }
+
+  .faq__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 350px;
+    flex-shrink: 0;
+  }
+  .faq__eyebrow {
+    font-size: 13px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: rgba(69, 73, 74, 0.75);
+  }
+  .faq__headline { font-size: 38px; line-height: 48px; }
+  .faq__headline em { font-style: italic; }
+  .faq__lace {
+    width: 460px;
+    max-width: 100%;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+  .faq__note {
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(69, 73, 74, 0.75);
+  }
+  .faq__aside .btn { align-self: flex-start; margin-top: 6px; }
+
+  @media (max-width: 1000px) {
+    .faq { flex-direction: column-reverse; gap: 60px; }
+    .faq__aside { width: 100%; }
+  }
+</style>
+
+<script>
+  // one-open-at-a-time accordion
+  const items = [...document.querySelectorAll<HTMLDetailsElement>(".faq__item")];
+  items.forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (item.open) items.forEach((other) => other !== item && (other.open = false));
+    });
+  });
+</script>

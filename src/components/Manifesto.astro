@@ -1,0 +1,67 @@
+---
+import WordmarkPaths from "./WordmarkPaths.astro";
+---
+
+<section class="manifesto">
+  <svg class="manifesto__watermark" viewBox="0 0 738.12 245.98" aria-hidden="true">
+    <WordmarkPaths />
+  </svg>
+  <div class="manifesto__copy">
+    <span class="manifesto__eyebrow">Introduction</span>
+    <h2 class="manifesto__headline">A strong point of view. Plenty of room for yours.</h2>
+    <p class="manifesto__body">
+      Blanc isn’t an empty box, and it won’t decide the day for you. Old brick, whitewashed
+      walls, open sky, and three distinct spaces give you a beautiful beginning. From there,
+      the day becomes entirely your own.
+    </p>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    position: relative;
+    overflow: hidden;
+    background: var(--iron);
+    min-height: 780px;
+    display: grid;
+    place-items: center;
+  }
+  .manifesto__watermark {
+    position: absolute;
+    left: -20%;
+    top: 38%;
+    width: 138%;
+    height: auto;
+    color: var(--paper);
+    opacity: 0.5;
+  }
+  .manifesto__copy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 130px 11%;
+    text-align: center;
+  }
+  .manifesto__eyebrow {
+    font-size: 13px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .manifesto__headline {
+    max-width: 1000px;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.32;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .manifesto__body {
+    max-width: 600px;
+    font-size: 17px;
+    line-height: 27px;
+    color: rgba(69, 73, 74, 0.85);
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+const types = [
+  "Weddings",
+  "Rehearsal dinners",
+  "Showers",
+  "Milestones",
+  "Creative dinners",
+  "Brand experiences",
+  "Company gatherings",
+  "Photoshoots",
+];
+---
+
+<section class="et" id="weddings">
+  <div class="et__header">
+    <span class="eyebrow">Event Types</span>
+    <h2 class="et__headline">More than one kind of good reason.</h2>
+  </div>
+  <p class="et__flow">
+    {types.map((t, i) => (
+      <>
+        <span class="et__type">{t}</span>
+        {i < types.length - 1 && <span class="et__dot" aria-hidden="true">·</span>}
+      </>
+    ))}
+  </p>
+  <p class="et__note">
+    Weddings may be closest to our heart, but Blanc was made for bringing people together.
+  </p>
+</section>
+
+<style>
+  .et {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+    padding: 120px 8.3% 140px;
+    background: var(--paper);
+    text-align: center;
+  }
+  .et__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .et__headline { font-size: 30px; line-height: 40px; }
+  .et__flow {
+    max-width: 1080px;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.64;
+    font-style: italic;
+  }
+  .et__type { white-space: nowrap; }
+  .et__dot { margin: 0 0.35em; color: var(--iron); }
+  .et__note {
+    max-width: 520px;
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--ink-soft);
+  }
+</style>

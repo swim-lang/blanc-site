@@ -1,0 +1,151 @@
+---
+import { withBase } from "../lib/paths";
+
+const slides = [
+  { img: "/images/b3.jpg", label: "The Gallery" },
+  { img: "/images/b1.jpg", label: "The Courtyard" },
+  { img: "/images/b2.webp", label: "The Barn" },
+  { img: "/images/b4.jpg", label: "The Courtyard, Evening" },
+];
+---
+
+<section class="gallery" id="gallery">
+  <div class="gallery__header">
+    <span class="eyebrow">Gallery</span>
+    <h2 class="gallery__headline">Look around. <em>Stay a while.</em></h2>
+  </div>
+
+  <div class="gallery__strip" data-gallery>
+    {slides.map((s, i) => (
+      <img
+        src={withBase(s.img)}
+        alt={s.label}
+        data-label={s.label}
+        data-index={i}
+        class:list={["gallery__slide", { "is-active": i === 1 }]}
+        loading="lazy"
+      />
+    ))}
+  </div>
+
+  <div class="gallery__controls">
+    <button class="gallery__arrow" data-prev aria-label="Previous photo">←</button>
+    <span class="gallery__counter" data-counter>02 / 04 — The Courtyard</span>
+    <button class="gallery__arrow" data-next aria-label="Next photo">→</button>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+    padding: 120px 0 110px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .gallery__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .gallery__headline { font-size: 34px; line-height: 44px; }
+  .gallery__headline em { font-style: italic; }
+
+  .gallery__strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+  .gallery__slide {
+    width: 240px;
+    height: 480px;
+    object-fit: cover;
+    opacity: 0.55;
+    flex-shrink: 0;
+    transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+  }
+  .gallery__slide.is-active {
+    width: min(800px, 60vw);
+    height: 540px;
+    opacity: 1;
+  }
+
+  .gallery__controls {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .gallery__arrow {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(69, 73, 74, 0.4);
+    border-radius: 999px;
+    font-size: 19px;
+    color: var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .gallery__arrow:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .gallery__counter {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    min-width: 260px;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .gallery__slide { display: none; }
+    .gallery__slide.is-active { display: block; width: 92vw; height: 380px; }
+    .gallery__counter { min-width: 0; }
+  }
+</style>
+
+<script>
+  const strip = document.querySelector("[data-gallery]");
+  if (strip) {
+    const slides = [...strip.querySelectorAll<HTMLImageElement>(".gallery__slide")];
+    const counter = document.querySelector("[data-counter]");
+    let active = 1;
+
+    // keep visual order: prev, active, next (loop)
+    function render() {
+      const prev = (active - 1 + slides.length) % slides.length;
+      const next = (active + 1) % slides.length;
+      const order = [prev, active, next];
+      slides.forEach((el) => {
+        const i = Number(el.dataset.index);
+        const pos = order.indexOf(i);
+        el.style.display = pos === -1 ? "none" : "block";
+        el.style.order = String(pos);
+        el.classList.toggle("is-active", i === active);
+      });
+      const label = slides[active].dataset.label;
+      if (counter) {
+        counter.textContent = `${String(active + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")} — ${label}`;
+      }
+    }
+
+    document.querySelector("[data-prev]")?.addEventListener("click", () => {
+      active = (active - 1 + slides.length) % slides.length;
+      render();
+    });
+    document.querySelector("[data-next]")?.addEventListener("click", () => {
+      active = (active + 1) % slides.length;
+      render();
+    });
+
+    render();
+  }
+</script>

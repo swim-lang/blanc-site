@@ -1,0 +1,104 @@
+---
+import Button from "./Button.astro";
+
+const principles = [
+  { n: "01", text: "Create a natural flow between indoors and out" },
+  { n: "02", text: "Design one continuous experience or several distinct moments" },
+  { n: "03", text: "Work with a considered group of event partners" },
+  { n: "04", text: "Use what the venue gives you—or take it somewhere new" },
+];
+---
+
+<section class="cf" id="events">
+  <div class="cf__header">
+    <span class="eyebrow">Creative Freedom</span>
+    <h2 class="cf__headline">Not a package. <em>A point of departure.</em></h2>
+    <p class="cf__lede">
+      There is no single way Blanc is supposed to look. We’ll provide the framework, practical
+      support, and a place with enough character to inspire you without taking over.
+    </p>
+  </div>
+
+  <div class="cf__grid">
+    <div class="cf__col">
+      {[principles[0], principles[2]].map((p) => (
+        <div class="cf__item">
+          <span class="cf__number">{p.n}</span>
+          <span class="cf__text">{p.text}</span>
+        </div>
+      ))}
+    </div>
+    <div class="cf__col cf__col--offset">
+      {[principles[1], principles[3]].map((p) => (
+        <div class="cf__item">
+          <span class="cf__number">{p.n}</span>
+          <span class="cf__text">{p.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <Button href="#visit" variant="solid">Tell Us What You’re Imagining</Button>
+</section>
+
+<style>
+  .cf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+    padding: 130px 9.7%;
+    background: var(--paper);
+  }
+  .cf__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+  .cf__headline {
+    font-size: clamp(30px, 3.2vw, 44px);
+    line-height: 1.23;
+  }
+  .cf__headline em { font-style: italic; }
+  .cf__lede {
+    max-width: 620px;
+    font-size: 17px;
+    line-height: 27px;
+    color: var(--ink-soft);
+  }
+  .cf__grid {
+    display: flex;
+    gap: 80px;
+    width: min(1100px, 100%);
+  }
+  .cf__col {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    width: 50%;
+  }
+  .cf__col--offset { margin-top: 110px; }
+  .cf__item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cf__number {
+    font-size: clamp(90px, 9vw, 130px);
+    line-height: 0.85;
+    font-style: italic;
+    color: var(--iron);
+  }
+  .cf__text {
+    font-size: 21px;
+    line-height: 31px;
+  }
+
+  @media (max-width: 800px) {
+    .cf__grid { flex-direction: column; gap: 60px; }
+    .cf__col { width: 100%; gap: 60px; }
+    .cf__col--offset { margin-top: 0; }
+  }
+</style>

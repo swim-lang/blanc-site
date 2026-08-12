@@ -1,0 +1,131 @@
+---
+import IronDividerPaths from "./IronDividerPaths.astro";
+import Button from "./Button.astro";
+import { withBase } from "../lib/paths";
+
+const spaces = [
+  {
+    img: "/images/b3.jpg",
+    alt: "The Gallery — a bright whitewashed hall set with long dining tables",
+    name: "The Gallery",
+    meta: "Bright · Open · N.01",
+    offset: 0,
+  },
+  {
+    img: "/images/b2.webp",
+    alt: "The Barn — brick building with glass roll doors and ceremony seating",
+    name: "The Barn",
+    meta: "Warm · Textured · N.02",
+    offset: 70,
+  },
+  {
+    img: "/images/b1.jpg",
+    alt: "The Courtyard — round tables under string lights and open sky",
+    name: "The Courtyard",
+    meta: "Open Sky · N.03",
+    offset: 28,
+  },
+];
+---
+
+<section class="spaces" id="spaces">
+  <div class="spaces__head">
+    <span class="eyebrow">The Spaces</span>
+    <h2 class="spaces__headline">One place. <em>A few different ways through it.</em></h2>
+    <svg class="spaces__divider" viewBox="0 0 593.09 211.1" aria-hidden="true">
+      <IronDividerPaths />
+    </svg>
+  </div>
+
+  <div class="spaces__triptych">
+    {spaces.map((s) => (
+      <figure class="spaces__card" style={`--offset: ${s.offset}px`}>
+        <img src={withBase(s.img)} alt={s.alt} loading="lazy" />
+        <figcaption>
+          <span class="spaces__name">{s.name}</span>
+          <span class="spaces__meta">{s.meta}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <div class="spaces__cta-row">
+    <Button href="#gallery" variant="outline-ink" class="spaces__cta">Explore the Space&ensp;→</Button>
+  </div>
+</section>
+
+<style>
+  .spaces {
+    padding: 120px 0 0;
+    background: var(--paper);
+  }
+  .spaces__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .spaces__headline {
+    font-size: clamp(30px, 3.2vw, 46px);
+    line-height: 1.22;
+  }
+  .spaces__headline em { font-style: italic; }
+  .spaces__divider {
+    width: 190px;
+    height: auto;
+    margin-top: 10px;
+    color: var(--iron);
+  }
+  .spaces__triptych {
+    display: flex;
+    gap: 3px;
+    align-items: flex-start;
+    margin-top: 70px;
+  }
+  .spaces__card {
+    width: calc((100% - 6px) / 3);
+    flex-shrink: 0;
+    margin-top: var(--offset);
+  }
+  .spaces__card img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+  }
+  .spaces__card figcaption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 20px 0;
+  }
+  .spaces__name { font-size: 24px; }
+  .spaces__meta {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .spaces__cta-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+    padding: 0 48px 110px;
+  }
+  .spaces__cta {
+    font-size: 17px;
+    padding: 18px 44px;
+  }
+
+  @media (max-width: 900px) {
+    .spaces__triptych {
+      flex-direction: column;
+      gap: 40px;
+      padding: 0 24px;
+    }
+    .spaces__card { width: 100%; margin-top: 0; }
+    .spaces__card img { height: 420px; }
+    .spaces__cta-row { margin-top: 60px; padding-bottom: 80px; }
+  }
+</style>

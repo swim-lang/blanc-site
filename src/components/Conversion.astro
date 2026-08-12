@@ -1,0 +1,132 @@
+---
+import IronMarkPaths from "./IronMarkPaths.astro";
+import Button from "./Button.astro";
+---
+
+<section class="conv" id="visit">
+  <svg class="conv__mark" viewBox="0 0 60.34 58.49" aria-hidden="true">
+    <IronMarkPaths />
+  </svg>
+  <span class="eyebrow">Plan a Visit</span>
+  <h2 class="conv__headline">Come see what it <em>could become.</em></h2>
+  <p class="conv__lede">
+    Walk the courtyard. See how the rooms connect. Tell us who you’re bringing together and
+    what you’re beginning to imagine.
+  </p>
+  <div class="conv__ctas">
+    <Button href="mailto:hello@blancdenver.com" variant="solid">Plan a Visit</Button>
+    <Button href="mailto:hello@blancdenver.com" variant="outline-ink">Ask About Your Date</Button>
+  </div>
+
+  <form class="conv__form" name="inquiry" method="post">
+    <span class="conv__form-label">Or start with the basics</span>
+    <div class="conv__row">
+      <input type="text" name="name" placeholder="Name" aria-label="Name" />
+      <input type="email" name="email" placeholder="Email" aria-label="Email" />
+    </div>
+    <div class="conv__row">
+      <input type="text" name="date" placeholder="Preferred date" aria-label="Preferred date" />
+      <input type="text" name="type" placeholder="Event type" aria-label="Event type" />
+    </div>
+    <div class="conv__row">
+      <input type="text" name="guests" placeholder="Estimated guest count" aria-label="Estimated guest count" />
+      <input type="text" name="vision" placeholder="What are you imagining?" aria-label="What are you imagining?" />
+    </div>
+    <button type="submit" class="conv__submit">
+      <span>Start the Conversation</span>
+      <span aria-hidden="true">→</span>
+    </button>
+    <p class="conv__note">
+      We’ll follow up with availability, planning information, and the next steps for visiting Blanc.
+    </p>
+  </form>
+</section>
+
+<style>
+  .conv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    padding: 130px 9.7% 120px;
+    background: var(--paper);
+    text-align: center;
+  }
+  .conv__mark {
+    width: 72px;
+    height: 70px;
+    margin-bottom: 6px;
+    color: var(--iron);
+  }
+  .conv__headline { font-size: clamp(34px, 3.4vw, 48px); line-height: 1.2; }
+  .conv__headline em { font-style: italic; }
+  .conv__lede {
+    max-width: 600px;
+    font-size: 17px;
+    line-height: 27px;
+    color: var(--ink-soft);
+  }
+  .conv__ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .conv__form {
+    display: flex;
+    flex-direction: column;
+    width: min(720px, 100%);
+    margin-top: 44px;
+    text-align: left;
+  }
+  .conv__form .conv__form-label { color: var(--iron); }
+  .conv__form-label {
+    font-size: 13px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--ink-soft);
+    padding-bottom: 20px;
+  }
+  .conv__row {
+    display: flex;
+    gap: 28px;
+    border-top: 1px solid var(--iron);
+  }
+  .conv__row input {
+    width: 50%;
+    padding: 18px 0;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+  .conv__row input::placeholder { color: var(--iron); }
+  .conv__submit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--iron);
+    border-bottom: 1px solid var(--iron);
+    font-size: 18px;
+    color: var(--iron);
+    transition: color 0.2s ease;
+  }
+  .conv__submit:hover { color: var(--ink); }
+  .conv__note {
+    padding-top: 18px;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--iron);
+  }
+
+  @media (max-width: 600px) {
+    .conv__row { flex-direction: column; gap: 0; }
+    .conv__row input { width: 100%; border-top: 1px solid var(--ink-hairline); }
+    .conv__row input:first-child { border-top: none; }
+    .conv__ctas { flex-direction: column; }
+  }
+</style>

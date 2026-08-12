@@ -1,0 +1,49 @@
+---
+import IronMarkPaths from "./IronMarkPaths.astro";
+import Button from "./Button.astro";
+---
+
+<nav class="nav">
+  <a href="#" class="nav__mark" aria-label="Blanc home">
+    <svg viewBox="0 0 60.34 58.49"><IronMarkPaths /></svg>
+  </a>
+  <div class="nav__links">
+    <a href="#spaces">The Space</a>
+    <a href="#weddings">Weddings</a>
+    <a href="#events">Events</a>
+    <a href="#story">Our Story</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <Button href="#visit" variant="outline-paper">Plan a Visit</Button>
+</nav>
+
+<style>
+  .nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    color: var(--paper);
+  }
+  .nav__mark svg {
+    width: 52px;
+    height: 50px;
+    color: var(--paper);
+  }
+  .nav__links {
+    display: flex;
+    gap: 32px;
+    font-size: 15px;
+  }
+  .nav__links a:hover { opacity: 0.8; }
+
+  @media (max-width: 900px) {
+    .nav { padding: 18px 24px; }
+    .nav__links { display: none; }
+  }
+</style>
