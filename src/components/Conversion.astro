@@ -32,9 +32,13 @@ import Button from "./Button.astro";
       <input type="text" name="guests" placeholder="Estimated guest count" aria-label="Estimated guest count" />
       <input type="text" name="vision" placeholder="What are you imagining?" aria-label="What are you imagining?" />
     </div>
-    <button type="submit" class="conv__submit">
-      <span>Start the Conversation</span>
-      <span aria-hidden="true">→</span>
+    <button type="submit" class="btn btn--solid btn--ornate conv__submit">
+      {["tl", "tr", "br", "bl"].map((corner) => (
+        <svg class={`btn__curl btn__curl--${corner}`} viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21.5 2.5 C13 3.2 6.6 5.4 4.9 9.6 C3.5 13.2 5.8 16.2 8.8 15.7 C11.3 15.2 12.3 12.6 11.1 11 C10.1 9.7 8.1 10 7.8 11.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      ))}
+      Start the Conversation&ensp;<span aria-hidden="true">→</span>
     </button>
     <p class="conv__note">
       We’ll follow up with availability, planning information, and the next steps for visiting Blanc.
@@ -78,13 +82,12 @@ import Button from "./Button.astro";
     margin-top: 44px;
     text-align: left;
   }
-  .conv__form .conv__form-label { color: var(--iron); }
   .conv__form-label {
     font-size: 13px;
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
     text-align: center;
-    color: var(--ink-soft);
+    color: var(--ink);
     padding-bottom: 20px;
   }
   .conv__row {
@@ -92,6 +95,7 @@ import Button from "./Button.astro";
     gap: 28px;
     border-top: 1px solid var(--iron);
   }
+  .conv__row:last-of-type { border-bottom: 1px solid var(--iron); }
   .conv__row input {
     width: 50%;
     padding: 18px 0;
@@ -104,17 +108,12 @@ import Button from "./Button.astro";
   }
   .conv__row input::placeholder { color: var(--iron); }
   .conv__submit {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    border-top: 1px solid var(--iron);
-    border-bottom: 1px solid var(--iron);
-    font-size: 18px;
-    color: var(--iron);
-    transition: color 0.2s ease;
+    align-self: center;
+    margin-top: 36px;
+    font-size: 17px;
+    padding: 18px 44px;
+    cursor: pointer;
   }
-  .conv__submit:hover { color: var(--ink); }
   .conv__note {
     padding-top: 18px;
     font-size: 13px;

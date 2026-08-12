@@ -1,4 +1,6 @@
 ---
+import IronDividerPaths from "./IronDividerPaths.astro";
+
 const types = [
   "Weddings",
   "Rehearsal dinners",
@@ -13,6 +15,7 @@ const types = [
 
 <section class="et" id="weddings">
   <div class="et__header">
+    <svg class="et__divider" viewBox="0 0 593.09 211.1" aria-hidden="true"><IronDividerPaths /></svg>
     <span class="eyebrow">Event Types</span>
     <h2 class="et__headline">More than one kind of good reason.</h2>
   </div>
@@ -46,11 +49,18 @@ const types = [
     gap: 16px;
   }
   .et__headline { font-size: 30px; line-height: 40px; }
+  .et__divider {
+    width: 160px;
+    height: 57px;
+    color: var(--iron);
+    margin-bottom: 10px;
+  }
   .et__flow {
-    max-width: 1080px;
+    max-width: min(1080px, 100%);
     font-size: clamp(28px, 3vw, 44px);
     line-height: 1.64;
     font-style: italic;
+    color: var(--iron);
   }
   .et__type { white-space: nowrap; }
   .et__dot { margin: 0 0.35em; color: var(--iron); }
