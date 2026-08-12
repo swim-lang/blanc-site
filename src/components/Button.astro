@@ -5,32 +5,8 @@ interface Props {
   class?: string;
 }
 const { href = "#", variant = "outline-ink", class: cls, ...rest } = Astro.props;
-
-// a small C-scroll curl, drawn in the spirit of the ironwork
-const curl = `M21.5 2.5 C13 3.2 6.6 5.4 4.9 9.6 C3.5 13.2 5.8 16.2 8.8 15.7 C11.3 15.2 12.3 12.6 11.1 11 C10.1 9.7 8.1 10 7.8 11.6`;
 ---
 
-<a href={href} class:list={["btn", `btn--${variant}`, "btn--ornate", cls]} {...rest}>
-  {["tl", "tr", "br", "bl"].map((corner) => (
-    <svg class={`btn__curl btn__curl--${corner}`} viewBox="0 0 24 24" aria-hidden="true">
-      <path d={curl} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-    </svg>
-  ))}
+<a href={href} class:list={["btn", `btn--${variant}`, cls]} {...rest}>
   <slot />
 </a>
-
-<style is:global>
-  .btn--ornate .btn__curl {
-    position: absolute;
-    width: 17px;
-    height: 17px;
-    opacity: 0.75;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
-  .btn--ornate:hover .btn__curl { opacity: 1; }
-  .btn__curl--tl { top: 1px; left: 1px; }
-  .btn__curl--tr { top: 1px; right: 1px; transform: scaleX(-1); }
-  .btn__curl--br { bottom: 1px; right: 1px; transform: scale(-1); }
-  .btn__curl--bl { bottom: 1px; left: 1px; transform: scaleY(-1); }
-</style>
