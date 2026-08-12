@@ -19,23 +19,13 @@ const principles = [
     </p>
   </div>
 
-  <div class="cf__grid" data-reveal-items=".cf__item">
-    <div class="cf__col">
-      {[principles[0], principles[2]].map((p) => (
-        <div class="cf__item" data-reveal-delay={(Number(p.n) - 1) * 150}>
-          <span class="cf__number">{p.n}</span>
-          <span class="cf__text">{p.text}</span>
-        </div>
-      ))}
-    </div>
-    <div class="cf__col cf__col--offset">
-      {[principles[1], principles[3]].map((p) => (
-        <div class="cf__item" data-reveal-delay={(Number(p.n) - 1) * 150}>
-          <span class="cf__number">{p.n}</span>
-          <span class="cf__text">{p.text}</span>
-        </div>
-      ))}
-    </div>
+  <div class="cf__stack" data-reveal-items=".cf__item">
+    {principles.map((p) => (
+      <div class="cf__item">
+        <span class="cf__number">{p.n}</span>
+        <span class="cf__text">{p.text}</span>
+      </div>
+    ))}
   </div>
 
   <Button href="#visit" variant="solid">Tell Us What You’re Imagining</Button>
@@ -68,37 +58,47 @@ const principles = [
     line-height: 27px;
     color: var(--ink-soft);
   }
-  .cf__grid {
-    display: flex;
-    gap: 80px;
-    width: min(1100px, 100%);
-  }
-  .cf__col {
+  .cf__stack {
     display: flex;
     flex-direction: column;
-    gap: 80px;
-    width: 50%;
+    width: min(1160px, 100%);
   }
-  .cf__col--offset { margin-top: 110px; }
   .cf__item {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    gap: 72px;
+    padding: 34px 0;
+  }
+  .cf__item + .cf__item { border-top: 1px solid var(--ink-hairline); }
+  .cf__item:nth-child(even) {
+    flex-direction: row-reverse;
+    text-align: right;
   }
   .cf__number {
-    font-size: clamp(90px, 9vw, 130px);
-    line-height: 0.85;
+    flex-shrink: 0;
+    font-size: clamp(200px, 21vw, 300px);
+    line-height: 0.78;
     font-style: italic;
     color: var(--iron);
   }
   .cf__text {
-    font-size: 21px;
-    line-height: 31px;
+    max-width: 400px;
+    font-size: 22px;
+    line-height: 34px;
   }
+  .cf__item:nth-child(odd) .cf__text { margin-left: auto; }
+  .cf__item:nth-child(even) .cf__text { margin-right: auto; }
 
-  @media (max-width: 800px) {
-    .cf__grid { flex-direction: column; gap: 60px; }
-    .cf__col { width: 100%; gap: 60px; }
-    .cf__col--offset { margin-top: 0; }
+  @media (max-width: 700px) {
+    .cf__item,
+    .cf__item:nth-child(even) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+      padding: 44px 0;
+    }
+    .cf__item:nth-child(odd) .cf__text { margin-left: 0; }
+    .cf__item:nth-child(even) .cf__text { margin-right: 0; }
   }
 </style>
